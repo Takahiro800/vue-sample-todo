@@ -6,22 +6,20 @@
     </div>
     <input v-model="filterValue" placeholder="フィルタテキスト" />
     <ul>
-      <li
+      <ToDoItem
         v-for="todo in filteredTodoItems"
         v-bind:key="todo.id"
-        v-on:click="todo.done = !todo.done"
-        class="todo-item"
-        v-bind:class="{ done: todo.done }"
-      >
-        <span v-if="todo.done">✅</span>
-        {{ todo.text }}
-      </li>
+        v-bind:text="todo.text"
+        v-bind:done="todo.done"
+      />
     </ul>
   </div>
 </template>
 
 <script>
+import ToDoItem from './ToDoItem.vue';
 export default {
+  components: { ToDoItem },
   data() {
     return {
       inputValue: '',
