@@ -3,7 +3,8 @@
     <input v-model="inputValue" />
     <button v-on:click="handleClick">TODOを追加</button>
     <ul>
-      <li v-for="todo in todoItems" v-bind:key="todo.id">
+      <li v-for="todo in todoItems" v-bind:key="todo.id" v-on:click="todo.done = !todo.done">
+        <span v-if="todo.done">✅</span>
         {{ todo.text }}
       </li>
     </ul>
@@ -16,8 +17,8 @@ export default {
     return {
       inputValue: '',
       todoItems: [
-        { id: 1, text: 'Go out to sea' },
-        { id: 2, text: 'Invite the first member' },
+        { id: 1, done: false, text: 'Go out to sea' },
+        { id: 2, done: true, text: 'Invite the first member' },
       ],
     };
   },
