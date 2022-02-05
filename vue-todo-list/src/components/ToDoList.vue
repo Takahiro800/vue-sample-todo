@@ -1,11 +1,13 @@
 <template>
   <div>
-    <input v-model="inputValue" />
-    <button v-on:click="handleClick">TODOを追加</button>
+    <div>
+      <input v-model="inputValue" />
+      <button v-on:click="handleClick">TODOを追加</button>
+    </div>
     <input v-model="filterValue" placeholder="フィルタテキスト" />
     <ul>
       <li
-        v-for="todo in filterdTodoItems"
+        v-for="todo in filteredTodoItems"
         v-bind:key="todo.id"
         v-on:click="todo.done = !todo.done"
         class="todo-item"
@@ -18,43 +20,29 @@
   </div>
 </template>
 
-<style>
-.todo-item.done {
-  background-color: #3fb983;
-  color: #ffffff;
-}
-</style>
-
 <script>
 export default {
   data() {
-    const todoItems = [
-      { id: 1, done: false, text: 'Go out to sea' },
-      { id: 2, done: true, text: 'Invite the first member' },
-    ];
     return {
       inputValue: '',
-      todoItems,
-      filterdTodoItems: todoItems,
+      todoItems: [
+        { id: 1, done: false, text: 'Go out to sea' },
+        { id: 2, done: true, text: 'Invite the first member' },
+      ],
       filterValue: '',
     };
   },
-  watch: {
-    // filterValueの値の変更を監視し、filterdTodoItemsを再計算する
-    filterValue() {
-      this.updateFilteredTodoItems();
-    },
-    todoItems: {
-      handler() {
-        this.updateFilteredTodoItems();
-      },
-      deep: true,
+  computed: {
+    filteredTodoItems() {
+      if (!this.filterValue) {
+        return this.todoItems;
+      }
+      return this.todoItems.filter((todo) => {
+        return todo.text.includes(this.filterValue);
+      });
     },
   },
   methods: {
-    updateFilteredTodoItems() {
-      this.filterValue ? this.todoItems.filter((todo) => todo.text.includes(this.filterValue)) : this.todoItems;
-    },
     handleClick() {
       this.todoItems.push({
         id: this.todoItems.length + 1,
@@ -65,3 +53,10 @@ export default {
   },
 };
 </script>
+
+<style>
+.todo-item.done {
+  background-color: #3fb983;
+  color: #ffffff;
+}
+</style>
