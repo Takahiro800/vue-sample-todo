@@ -15,26 +15,33 @@
 <script>
 export default {
   data() {
+    const todoItems = [
+      { id: 1, done: false, text: 'Go out to sea' },
+      { id: 2, done: true, text: 'Invite the first member' },
+    ];
     return {
       inputValue: '',
-      todoItems: [
-        { id: 1, done: false, text: 'Go out to sea' },
-        { id: 2, done: true, text: 'Invite the first member' },
-      ],
+      todoItems,
+      filterdTodoItems: todoItems,
       filterValue: '',
     };
   },
-  computed: {
-    filterdTodoItems() {
-      if (!this.filterValue) {
-        return this.todoItems;
-      }
-      return this.todoItems.filter((todo) => {
-        return todo.text.includes(this.filterValue);
-      });
+  watch: {
+    // filterValueの値の変更を監視し、filterdTodoItemsを再計算する
+    filterValue() {
+      this.updateFilteredTodoItems();
+    },
+    todoItems: {
+      handler() {
+        this.updateFilteredTodoItems();
+      },
+      deep: true,
     },
   },
   methods: {
+    updateFilteredTodoItems() {
+      this.filterValue ? this.todoItems.filter((todo) => todo.text.includes(this.filterValue)) : this.todoItems;
+    },
     handleClick() {
       this.todoItems.push({
         id: this.todoItems.length + 1,
