@@ -1,7 +1,7 @@
 <template>
   <div>
     <input v-model="inputValue" />
-    <button v-on:click="handleClick">入力内容を表示</button>
+    <button v-on:click="handleClick">TODOを追加</button>
     <ul>
       <li v-for="todo in todoItems" v-bind:key="todo.id">
         {{ todo.text }}
@@ -23,7 +23,11 @@ export default {
   },
   methods: {
     handleClick() {
-      alert(this.inputValue);
+      this.todoItems.push({
+        id: this.todoItems.length + 1,
+        text: this.inputValue,
+      });
+      this.inputValue = '';
     },
   },
 };
