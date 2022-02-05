@@ -4,13 +4,26 @@
     <button v-on:click="handleClick">TODOを追加</button>
     <input v-model="filterValue" placeholder="フィルタテキスト" />
     <ul>
-      <li v-for="todo in filterdTodoItems" v-bind:key="todo.id" v-on:click="todo.done = !todo.done">
+      <li
+        v-for="todo in filterdTodoItems"
+        v-bind:key="todo.id"
+        v-on:click="todo.done = !todo.done"
+        class="todo-item"
+        v-bind:class="{ done: todo.done }"
+      >
         <span v-if="todo.done">✅</span>
         {{ todo.text }}
       </li>
     </ul>
   </div>
 </template>
+
+<style>
+.todo-item.done {
+  background-color: #3fb983;
+  color: #ffffff;
+}
+</style>
 
 <script>
 export default {
