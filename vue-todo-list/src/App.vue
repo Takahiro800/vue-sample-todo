@@ -4,6 +4,7 @@
     <ToDoList />
     <ComponentSample />
     <Slot />
+    <ScopSlot>
   </div>
 </template>
 
@@ -11,6 +12,7 @@
 import ComponentSample from './components/Component.vue';
 import ToDoList from './components/ToDoList.vue';
 import Slot from './components/Slot.vue';
+import ScopSlot from './components/ScopSlot.vue'
 export default {
   name: 'App',
   // ToDoListを<template>で使用できるようにする
@@ -18,6 +20,7 @@ export default {
     ToDoList,
     ComponentSample,
     Slot,
+    ScopSlot
   },
 };
 </script>
