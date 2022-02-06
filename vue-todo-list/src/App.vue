@@ -2,19 +2,22 @@
   <!-- ToDoListを使用する -->
   <div>
     <ToDoList />
-    <test />
+    <ComponentSample />
+    <Slot />
   </div>
 </template>
 
 <script>
-import test from './components/Component.vue';
+import ComponentSample from './components/Component.vue';
 import ToDoList from './components/ToDoList.vue';
+import Slot from './components/Slot.vue';
 export default {
   name: 'App',
   // ToDoListを<template>で使用できるようにする
   components: {
     ToDoList,
-    test,
+    ComponentSample,
+    Slot,
   },
 };
 </script>
